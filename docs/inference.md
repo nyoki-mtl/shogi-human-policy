@@ -34,12 +34,12 @@ position = Position.from_kif(kif_text, ply=30)
 - **分岐と終局記号**: 変化を含む棋譜は本譜のみを使用します。投了などの終局記号は着手数に含めず、末尾指定時は終局記号の直前の盤面になります。
 - **ヘッダ情報**: 棋譜ヘッダの名前・R・持ち時間から推論条件を自動設定することはありません。
 
-### 履歴の扱いと手番視点の正規化
+### 履歴と手番の扱い
 
 - 棋譜や着手列を渡すと、途中局面でもそれまでの履歴を保持します。
-- 推論には現在局面と最大 7 手前まで（計最大 8 局面）を使用します。不足分はパディング（盤面 0、持ち駒符号化値 31）で埋めます。SFEN 単体からは過去の履歴や千日手反復を復元できません。
-- 入力は現在の手番側から見た向きに統一します（後手番では盤面を 180 度回転して駒色を反転し、持ち駒の自他を入れ替えます）。
-- `history_plies=0` で現在局面のみ、既定の `7` で最大 8 局面を使用します（短縮時は残した履歴内で反復回数を再計算します）。
+- 推論には現在局面と最大 7 手前まで（計最大 8 局面）を使用します。不足分はパディングで埋めます。SFEN 単体からは過去の履歴や千日手反復を復元できません。
+- 後手番も、通常のSFENや棋譜をそのまま渡してください。
+- `history_plies=0`で現在局面のみ、既定の`7`で最大8局面を使用します。
 - `position.to_usi()` で履歴付き USI 文字列、`position.to_sfen()` で現在局面の SFEN、`position.to_board()` で独立した `rsshogi` 盤面を取得できます。
 
 ---
@@ -71,7 +71,7 @@ shogi-human-policy predict --model models/v0.1.1 --file game.kif --ply 30 --form
   - 切れ負け: `残り本時間`
   - フィッシャー: `現在の残り時間`（着手後の加算は含めない）
   - 相手側も現在観測している時計状態をそのまま渡します（ミリ秒は秒へ変換）。
-- **内部正規化**: R は `(R - 1500) / 1500`、時計は `log1p(秒数) / log1p(3600)` に変換し、不明な組は 0 置換＋既知性 mask で区別します（`0秒` を不明扱いすることはありません）。
+- **0秒と不明の区別**: `clocks=(0, 60)`の0秒は既知の時間として扱います。不明な場合は`None`を指定します。
 
 ---
 
@@ -86,9 +86,18 @@ shogi-human-policy predict --model models/v0.1.1 --file game.kif --ply 30 --form
 
 ---
 
-## 配布形式
+## モデルファイルと読み込み
 
-1 モデルを `manifest.json` と `policy.safetensors` の 2 ファイルで構成します。
+[GitHub Releasesのv0.1.1](https://github.com/nyoki-mtl/shogi-human-policy/releases/tag/v0.1.1)から、同じバージョンの2ファイルを取得して同じフォルダに配置します。
 
-- **`manifest.json`**: schema `shogi-human-policy-v1`、モデルバージョン、モデル構造、EMA 選択、1496 ラベル、8 履歴、入力正規化・パディング仕様、geometry と重みの SHA-256 を記録します。`v0.1.1` の manifest は [model-manifest.json](model-manifest.json) を参照してください。
-- **検証**: 読み込み時に SHA-256、全パラメータ名、shape、有限性、同梱 `geometry.npz` との整合性を検査します（`safetensors` 形式のみを使用）。
+- **`manifest.json`**: モデルのバージョンと構造、入力仕様を記録したファイル。
+- **`policy.safetensors`**: 推論に使う重み。
+
+```python
+from shogi_human_policy import PolicyModel
+
+model = PolicyModel.from_directory("models/v0.1.1")  # CPU
+model = PolicyModel.from_directory("models/v0.1.1", device="cuda")  # CUDA GPU
+```
+
+CLIでGPUを使う場合は、`--device cuda`を指定します。

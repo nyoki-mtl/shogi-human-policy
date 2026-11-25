@@ -12,10 +12,15 @@ Python 3.11〜3.13 で動作します。
 
 ### CLI で試す
 
+```console
+git clone https://github.com/nyoki-mtl/shogi-human-policy.git
+cd shogi-human-policy
+uv sync
+```
+
 [Releases](https://github.com/nyoki-mtl/shogi-human-policy/releases) から `v0.1.1` のモデルファイル（`manifest.json` と `policy.safetensors` の2ファイル）を取得し、`models/v0.1.1/` に配置して実行します。
 
 ```console
-uv sync
 uv run shogi-human-policy predict --model models/v0.1.1 --position "startpos moves 7g7f 3c3d"
 uv run shogi-human-policy predict --model models/v0.1.1 --file examples/records/opening.kif --ply 2 --top-k 5
 ```
@@ -113,14 +118,4 @@ R帯（200刻み）と手数帯の内訳を揃えた validation 30,000局面（�
 詳細は以下を参照してください。
 
 - [入力仕様・API・配布形式](docs/inference.md) — 局面・棋譜の扱い、Rと時計の定義、バッチ推論、`manifest.json` + `policy.safetensors` 仕様
-- [モデルカード](docs/model-card.md) — 構造、学習データ、学習設定、数値検証
-
-## 開発
-
-```console
-uv sync --group dev --group analysis
-uv run pytest
-uv run ruff check .
-uv run ruff format --check .
-uv build
-```
+- [モデルカード](docs/model-card.md) — 構造、学習データ、学習設定、配布先

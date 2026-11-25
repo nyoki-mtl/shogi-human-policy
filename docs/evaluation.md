@@ -101,17 +101,6 @@ R と過去履歴の省略は NLL を悪化させました。時計省略の差�
 | 2500 | 61.15% | 1.1449 | -0.69〜+0.88 pt |
 | 2900 | 61.05% | 1.1242 | 基準 |
 
----
+## 評価条件
 
-## 集計データと再生成
-
-- 集計 JSON: [全体・入力省略 JSON](metrics/v0.1.1.json) / [実R×入力R マトリクス JSON](metrics/v0.1.1-rating-matrix.json)
-- R 帯別集計では 3000 以上および不明 R を除外しています。bootstrap 区間は対局単位の再抽出（2,000 回）による95%区間です。
-- 手元の評価用 NPZ を用意すれば、以下のコマンドで再集計・再描画できます。
-
-```console
-uv sync --group analysis
-uv run python tools/evaluate.py --model models/v0.1.1 --dataset /path/to/validation.npz --output docs/metrics/v0.1.1.json
-uv run python tools/evaluate_rating_matrix.py --model models/v0.1.1 --dataset /path/to/matched-validation.npz --selection-info /path/to/matched-validation.json --per-band 2000 --cache work_dir/matched-metrics.npz --output docs/metrics/v0.1.1-rating-matrix.json
-uv run python tools/plot_metrics.py docs/metrics/v0.1.1.json --rating-matrix docs/metrics/v0.1.1-rating-matrix.json
-```
+R帯別の集計は0〜2999を200刻みに分けています。95%区間は対局単位のbootstrap（2,000回）によります。

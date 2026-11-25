@@ -80,10 +80,9 @@
 
 ---
 
-## 測定条件と集計データ
+## 評価条件
 
 - **評価データ**: 本モデルの学習対局と分離したvalidationを使用しています。
 - **抽出方法**: 既存の均等化 validation（30,000 局面）のうち、自他 R がともに 800 以上 2800 未満の局面から、10 の自 R 帯ごとに 20 手刻みの手数構成を揃えて各帯 1,601 局面（計 16,010 局面）を非復元抽出しました。
 - **モデル変換**: `maia2-shogi` は 119 特徴量＋100 刻み R カテゴリに変換して ONNX で推論し、両モデルのラベル（2187 / 1496）を同じ USI 合法手集合へ対応させています。
 - **区間推定**: 対局単位 bootstrap 2,000 回による個別95%区間です。
-- **集計 JSON / 図の再生成**: [集計 JSON](metrics/v0.1.1-direct-maia2.json) から `uv run python tools/plot_direct_comparison.py docs/metrics/v0.1.1-direct-maia2.json --paper-diagnostics docs/metrics/v0.1.1-paper-diagnostics.json` で図を再生成できます。

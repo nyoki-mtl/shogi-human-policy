@@ -20,16 +20,6 @@
 - **条件dropout**: 両方使用70% / Rのみ10% / 時計のみ10% / 両方省略10%。
 - **履歴短縮**: 8局面50% / 現在局面のみ25% / 2〜7局面を各1/24。
 
-## 数値検証
-
-| 比較 | 入力数 | 最大絶対差 |
-| --- | ---: | ---: |
-| JAX参照 / PyTorch（CPU float32） | 48 | logit: 3.624 × 10⁻⁵ |
-| CPU / CUDA（float32、TF32無効） | 128 | 着手確率: 1.448 × 10⁻⁶ |
-
-CPU / CUDAで第一候補は全件一致しました。
-[検証データ](parity.json) / [評価結果](evaluation.md)
-
 ## 配布
 
 [GitHub Releasesのv0.1.1](https://github.com/nyoki-mtl/shogi-human-policy/releases/tag/v0.1.1)で、`manifest.json`と`policy.safetensors`を配布しています。

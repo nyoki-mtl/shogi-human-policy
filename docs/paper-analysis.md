@@ -106,15 +106,3 @@
 
 - **履歴省略**: NLL 差は +0.0469 でしたが、自 R 900 vs 2100 による第一候補変更率は現在局面だけでも **17.79%** でした。履歴を省いた場合にも、入力Rに応じて予測が変化しています。
 - **相手 R**: 観測自Rを保ち、相手Rだけを1600固定にするとNLLは +0.0057（95%区間: +0.0039〜+0.0075）変化しました。この条件では観測相手Rを使う方がNLLが低くなりました。自Rまで1600固定した対照での、相手R固定によるNLL差は -0.0288 でした。
-
----
-
-## 集計データと再生成
-
-- 集計 JSON: [paper-diagnostics JSON](metrics/v0.1.1-paper-diagnostics.json)
-- 再集計・再描画コマンド（手元のデータセット NPZ を使用、図の再生成には日本語フォントが必要）：
-
-```console
-uv run python tools/evaluate_paper_diagnostics.py --model models/v0.1.1 --dataset /path/to/matched-paper-validation.npz --cache work_dir/paper-cache.npz --output docs/metrics/v0.1.1-paper-diagnostics.json
-uv run python tools/plot_paper_diagnostics.py docs/metrics/v0.1.1-paper-diagnostics.json
-```
