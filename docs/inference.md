@@ -47,8 +47,8 @@ position = Position.from_kif(kif_text, ply=30)
 ## CLI
 
 ```console
-shogi-human-policy predict --model models/v0.1.0 --position "startpos" --moves 7g7f 3c3d
-shogi-human-policy predict --model models/v0.1.0 --file game.kif --ply 30 --format json
+shogi-human-policy predict --model models/v0.1.1 --position "startpos" --moves 7g7f 3c3d
+shogi-human-policy predict --model models/v0.1.1 --file game.kif --ply 30 --format json
 ```
 
 - `--position` と `--file` は排他指定です（両方省略時は平手初期局面）。
@@ -91,6 +91,6 @@ shogi-human-policy predict --model models/v0.1.0 --file game.kif --ply 30 --form
 
 1 モデルを `manifest.json` と `policy.safetensors` の 2 ファイルで構成します（学習時の optimizer・EMA 状態・未学習の value 系 head は含めません）。
 
-- **`manifest.json`**: schema `shogi-human-policy-v1`、モデル構造、EMA 更新数、1496 ラベル、8 履歴、入力正規化・パディング仕様、geometry と重みの SHA-256 を記録します。`v0.1.0` の manifest は [model-manifest.json](model-manifest.json) を参照してください。
+- **`manifest.json`**: schema `shogi-human-policy-v1`、モデルバージョン、モデル構造、EMA 選択、1496 ラベル、8 履歴、入力正規化・パディング仕様、geometry と重みの SHA-256 を記録します。`v0.1.1` の manifest は [model-manifest.json](model-manifest.json) を参照してください。
 - **検証**: 読み込み時に SHA-256、全パラメータ名、shape、有限性、同梱 `geometry.npz` との整合性を検査します（`safetensors` 形式のみを使用）。
 - 重みファイルと棋譜データは Git に含めません。

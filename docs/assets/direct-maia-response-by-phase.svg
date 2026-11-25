@@ -1063,10 +1063,10 @@ z
     </g>
    </g>
    <g id="line2d_16">
-    <path d="M 51.764177 123.498587
-L 159.014939 121.983447
-L 266.265701 139.743125
-L 373.516462 152.56069
+    <path d="M 51.764177 91.241478
+L 159.014939 104.612771
+L 266.265701 117.600006
+L 373.516462 129.969926
 " clip-path="url(#pb124349863)" style="fill: none; stroke: #2166ac; stroke-width: 1.5; stroke-linecap: square"/>
     <defs>
      <path id="m3c9bb9556b" d="M 0 3
@@ -1082,10 +1082,10 @@ z
 " style="stroke: #2166ac"/>
     </defs>
     <g clip-path="url(#pb124349863)">
-     <use xlink:href="#m3c9bb9556b" x="51.764177" y="123.498587" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="159.014939" y="121.983447" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="266.265701" y="139.743125" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="373.516462" y="152.56069" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="51.764177" y="91.241478" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="159.014939" y="104.612771" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="266.265701" y="117.600006" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="373.516462" y="129.969926" style="fill: #2166ac; stroke: #2166ac"/>
     </g>
    </g>
    <g id="text_11">
@@ -1959,16 +1959,16 @@ L 776.360363 250.315343
     </g>
    </g>
    <g id="line2d_34">
-    <path d="M 454.608077 146.383104
-L 561.858839 170.779287
-L 669.109601 167.759391
-L 776.360363 173.546179
+    <path d="M 454.608077 79.714793
+L 561.858839 137.809245
+L 669.109601 141.560981
+L 776.360363 147.913835
 " clip-path="url(#p666f4c8ff6)" style="fill: none; stroke: #2166ac; stroke-width: 1.5; stroke-linecap: square"/>
     <g clip-path="url(#p666f4c8ff6)">
-     <use xlink:href="#m3c9bb9556b" x="454.608077" y="146.383104" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="561.858839" y="170.779287" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="669.109601" y="167.759391" style="fill: #2166ac; stroke: #2166ac"/>
-     <use xlink:href="#m3c9bb9556b" x="776.360363" y="173.546179" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="454.608077" y="79.714793" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="561.858839" y="137.809245" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="669.109601" y="141.560981" style="fill: #2166ac; stroke: #2166ac"/>
+     <use xlink:href="#m3c9bb9556b" x="776.360363" y="147.913835" style="fill: #2166ac; stroke: #2166ac"/>
     </g>
    </g>
    <g id="text_23">

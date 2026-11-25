@@ -15,7 +15,7 @@
     "smolgen_hidden_channels": 32,
     "smolgen_hidden_dim": 128
   },
-  "model_version": "v0.1.0",
+  "model_version": "v0.1.1",
   "selection": "ema",
   "status": "release",
   "policy_labels": 1496,
@@ -33,7 +33,7 @@
     "missing": "paired rating and clock masks after normalization"
   },
   "files": {
-    "policy.safetensors": "190695a614ec6e100ea4f2666d949ccebd970fcf68c86321f0658cd4e2804b80"
+    "policy.safetensors": "3928c5d9015ff1cfb97a9e5f18bae63aeefe3150c8256ba3d13a248c44be2deb"
   },
   "geometry_sha256": "0c42ae37cd63ab094890cb7f9f3d2377c6ec3df727451d8e7397d4d2a36d2488"
 }

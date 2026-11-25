@@ -1,6 +1,6 @@
 [project]
 name = "shogi-human-policy"
-version = "0.1.0"
+version = "0.1.1"
 description = "Rating- and clock-conditioned human move prediction for shogi"
 readme = "README.md"
 license = "MIT"

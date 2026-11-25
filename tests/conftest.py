@@ -42,7 +42,7 @@ def model_directory(tmp_path, network, architecture):
         schema="shogi-human-policy-v1",
         architecture=architecture,
         selection="ema",
-        step=0,
+        model_version="test-model",
         policy_labels=1496,
         history_frames=8,
         history_padding="zero_board_hand31",

@@ -12,12 +12,12 @@ Python 3.11〜3.13 で動作します。
 
 ### CLI で試す
 
-[Releases](https://github.com/nyoki-mtl/shogi-human-policy/releases) から `v0.1.0` のモデルファイル（`manifest.json` と `policy.safetensors` の2ファイル）を取得し、`models/v0.1.0/` に配置して実行します。
+[Releases](https://github.com/nyoki-mtl/shogi-human-policy/releases) から `v0.1.1` のモデルファイル（`manifest.json` と `policy.safetensors` の2ファイル）を取得し、`models/v0.1.1/` に配置して実行します。
 
 ```console
 uv sync
-uv run shogi-human-policy predict --model models/v0.1.0 --position "startpos moves 7g7f 3c3d"
-uv run shogi-human-policy predict --model models/v0.1.0 --file examples/records/opening.kif --ply 2 --top-k 5
+uv run shogi-human-policy predict --model models/v0.1.1 --position "startpos moves 7g7f 3c3d"
+uv run shogi-human-policy predict --model models/v0.1.1 --file examples/records/opening.kif --ply 2 --top-k 5
 ```
 
 | 入力できる情報                         | CLI オプション例                                                          |
@@ -34,7 +34,7 @@ uv run shogi-human-policy predict --model models/v0.1.0 --file examples/records/
 ```python
 from shogi_human_policy import Conditions, PolicyModel, Position
 
-model = PolicyModel.from_directory("models/v0.1.0")
+model = PolicyModel.from_directory("models/v0.1.1")
 position = Position.from_file("examples/records/opening.kif", ply=2)
 
 result = model.predict(
@@ -52,28 +52,34 @@ for row in result.as_rows(position):
 
 ### Colab デモで試す
 
-[notebooks/demo.ipynb](notebooks/demo.ipynb) を Google Colab（標準 CPU ランタイム / Python 3.11〜3.13）へアップロードして実行できます。
+[![Colabで開く](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nyoki-mtl/shogi-human-policy/blob/main/notebooks/demo.ipynb)
 
-1. ローカルで `uv build --wheel` を実行する。
-2. 最初のセルで wheel、`manifest.json`、`policy.safetensors` の3ファイルをアップロードする。
-3. 局面（SFEN / USI / 棋譜ファイル）と先手・後手の R / 時計を指定して実行すると、盤面と上位候補が表示されます。
+上のボタンから直接開き、標準CPUランタイムで上から順に実行してください。
+
+1. 「モデルの準備」で「リリース」を選ぶと、指定バージョンのコードとモデルを自動取得します。
+2. 局面（SFEN / USI / 棋譜ファイル）と先手・後手のR / 時計を指定します。
+3. 盤面と上位候補が表示されます。
+
+手元のモデルを使う場合は「手元ファイル」を選び、wheel、`manifest.json`、`policy.safetensors`をアップロードしてください。
 
 ---
 
-## 予測性能（`v0.1.0`）
+## 予測性能（`v0.1.1`）
 
 数値はすべて **temperature 1・全合法手を分母とした正規化** で算出しています。policy 一致率は指定 R での対局棋力やレーティング校正を保証するものではありません。
 
-### 全体成績と前作との比較
+### 前作との同一局面比較
 
-| 評価設定（validation）      | モデル               |               正解率 |           policy NLL |
-| --------------------------- | -------------------- | -------------------: | -------------------: |
-| 自然頻度 50,000局面 | 本モデル | **58.59%** | **1.2604** |
-| 前作との共通範囲 16,010局面 | `maia2-shogi v0.2.1` |               55.11% |               1.4211 |
-| 前作との共通範囲 16,010局面 | 本モデル | **59.58%** (+4.47pt) | **1.2113** (-0.2098) |
+両モデルを**同じ16,010局面**（自他Rが800以上2800未満のvalidation）で比較しました。
+括弧内は前作との差です。
 
-- **入力の寄与**（自然頻度 5,000局面）：R を省略すると NLL が `+0.0143`、履歴を省略（現在局面のみ）すると `+0.0494` 変化します。
-- **手数帯別の比較**（共通範囲 16,010局面）：40〜79手の正解率差は +6.73pt、80手以降は +8.13pt でした。0〜19手の NLL は `maia2-shogi` の方が良好でした。
+| モデル | 正解率 | policy NLL（低いほど良い） |
+| --- | ---: | ---: |
+| `maia2-shogi v0.2.1` | 55.11% | 1.4211 |
+| 本モデル | **60.46%** (+5.35pt) | **1.1730** (-0.2481) |
+
+- **入力の寄与**（自然頻度 5,000局面）：R を省略すると NLL が `+0.0244`、履歴を省略（現在局面のみ）すると `+0.0504` 変化します。
+- **手数帯別の比較**（共通範囲 16,010局面）：40〜79手の正解率差は +7.43pt、80手以降は +8.80pt でした。0〜19手は正解率差・NLL差とも95%区間が0を含みました。
 
 ![maia2-shogiとのR帯別比較（正解率）](docs/assets/direct-maia-rating-accuracy.png)
 
