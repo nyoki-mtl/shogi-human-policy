@@ -65,7 +65,7 @@ shogi-human-policy predict --model models/v0.1.1 --file game.kif --ply 30 --form
 | `Conditions.clocks` | `(手番側の利用可能秒数, 相手の利用可能秒数)` | `None` |
 
 - 値はすべて有限な非負の数を指定します。片方のみ不明な場合はその組全体を `None` にしてください。
-- **レーティング**: 学習元の将棋倶楽部24の尺度を想定しています（他サービスへの換算は未検証）。駒落ちで指定する場合は黒を下手、白を上手として扱います。
+- **レーティング**: 将棋倶楽部24のレーティングを使用します。駒落ちで指定する場合は黒を下手、白を上手として扱います。
 - **時計（着手前の利用可能秒数）**: 当該手に実際に消費した時間は含めません。
   - 秒読みあり: `残り本時間 + その手で使える秒読み`
   - 切れ負け: `残り本時間`
@@ -83,14 +83,12 @@ shogi-human-policy predict --model models/v0.1.1 --file game.kif --ply 30 --form
 - **`temperature`**: 既定は `1`（正の有限値を指定可能）。評価時は必ず `1` を使用します。
 - **バッチ推論**: `predict_batch(positions, conditions=None)` で複数局面を一括処理できます（`conditions` は局面数と同じ長さの列）。
 - **スレッド数**: CLI はスレッド数を既定 `4` に設定し、Python API は呼び出し元の設定を維持します。
-- 本ライブラリは着手分布の予測のみを行い、探索・投了判断・時間配分を行う USI エンジン機能は含みません。
 
 ---
 
 ## 配布形式
 
-1 モデルを `manifest.json` と `policy.safetensors` の 2 ファイルで構成します（学習時の optimizer・EMA 状態・未学習の value 系 head は含めません）。
+1 モデルを `manifest.json` と `policy.safetensors` の 2 ファイルで構成します。
 
 - **`manifest.json`**: schema `shogi-human-policy-v1`、モデルバージョン、モデル構造、EMA 選択、1496 ラベル、8 履歴、入力正規化・パディング仕様、geometry と重みの SHA-256 を記録します。`v0.1.1` の manifest は [model-manifest.json](model-manifest.json) を参照してください。
 - **検証**: 読み込み時に SHA-256、全パラメータ名、shape、有限性、同梱 `geometry.npz` との整合性を検査します（`safetensors` 形式のみを使用）。
-- 重みファイルと棋譜データは Git に含めません。
